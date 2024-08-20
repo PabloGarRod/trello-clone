@@ -26,12 +26,12 @@
             [cdkDropListData]="column.todos"
           >
             <div
-              *ngFor="let toDo of column.todos"
+              *ngFor="let todo of column.todos"
               cdkDrag
               class="bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400"
-              (click)="openDialog()"
+              (click)="openDialog(todo)"
             >
-              {{ toDo.title }}
+              {{ todo.title }}
             </div>
           </div>
         </div>
