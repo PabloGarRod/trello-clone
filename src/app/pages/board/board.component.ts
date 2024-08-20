@@ -7,9 +7,9 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Dialog } from '@angular/cdk/dialog';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { Column, ToDo } from '../../models/todo.models';
-import { TodoDialogComponent } from '../../components/todo-dialog/todo-dialog.component';
+import { NavbarComponent } from '@components/navbar/navbar.component';
+import { Column, ToDo } from '@models/todo.models';
+import { TodoDialogComponent } from '@components/todo-dialog/todo-dialog.component';
 
 @Component({
   selector: 'app-board',
