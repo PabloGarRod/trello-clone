@@ -15,10 +15,3 @@ export interface InputData {
 export interface OutPutData {
   rta: boolean;
 }
-
-export interface Product {
-  id: string;
-  title: string;
-  images: string[];
-  price: number;
-}

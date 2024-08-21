@@ -13,7 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BtnComponent } from '../btn/btn.component';
-import { InputData, OutPutData, ToDo } from '@models/todo.models';
+import { InputData, OutPutData, ToDo } from '@models/todo.model';
 
 @Component({
   selector: 'app-todo-dialog',

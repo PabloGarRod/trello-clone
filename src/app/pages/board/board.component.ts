@@ -8,7 +8,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Dialog } from '@angular/cdk/dialog';
 import { NavbarComponent } from '@components/navbar/navbar.component';
-import { Column, ToDo } from '@models/todo.models';
+import { Column, ToDo } from '@models/todo.model';
 import { TodoDialogComponent } from '@components/todo-dialog/todo-dialog.component';
 
 @Component({
