@@ -37,12 +37,28 @@ export class DataSourceProduct extends DataSource<Product> {
     }
   }
 
-  find(query: string) {
+  findId(query: string) {
+    if (query === '') {
+      this.data.next(this.originalData);
+    } else {
+      const newProducts = this.originalData.filter(
+        (item) => item.id.toString() === query
+      );
+      this.data.next(newProducts);
+    }
+  }
+
+  findTitle(query: string) {
+    this.data.next(this.originalData);
+    const newProducts = this.originalData.filter((item) =>
+      item.title.toLowerCase().includes(query.toLowerCase())
+    );
+    this.data.next(newProducts);
+  }
+
+  findPrice(query: string) {
     const newProducts = this.originalData.filter(
-      (item) =>
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.id.toString().includes(query) ||
-        item.price.toString().includes(query)
+      (item) => item.price.toString() === query
     );
     this.data.next(newProducts);
   }

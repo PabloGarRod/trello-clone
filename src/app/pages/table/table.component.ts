@@ -29,7 +29,9 @@ export class TableComponent implements OnInit {
 
   total = 0;
 
-  input = new FormControl('', { nonNullable: true });
+  inputId = new FormControl('', { nonNullable: true });
+  inputTitle = new FormControl('', { nonNullable: true });
+  inputPrice = new FormControl('', { nonNullable: true });
 
   constructor(private http: HttpClient) {}
 
@@ -40,9 +42,16 @@ export class TableComponent implements OnInit {
         this.dataSource.init(data);
         this.total = this.dataSource.getTotal();
       });
-    this.input.valueChanges
+    this.inputId.valueChanges
       .pipe(debounceTime(1000))
-      .subscribe((value) => this.dataSource.find(value));
+      .subscribe((value) => this.dataSource.findId(value));
+
+    this.inputTitle.valueChanges
+      .pipe(debounceTime(1000))
+      .subscribe((value) => this.dataSource.findTitle(value));
+    this.inputPrice.valueChanges
+      .pipe(debounceTime(1000))
+      .subscribe((value) => this.dataSource.findPrice(value));
   }
 
   update(product: Product) {

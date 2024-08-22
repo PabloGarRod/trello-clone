@@ -9,37 +9,50 @@ import { NgClass } from '@angular/common';
 })
 export class BtnComponent {
   @Input() typeBtn: 'button' | 'reset' | 'submit' = 'button';
-  @Input() color: 'success' | 'primary' | 'danger' | 'sky' | 'gray-light' =
+  @Input() color: 'success' | 'primary' | 'danger' | 'sky' | 'light' =
     'primary';
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  get colors() {
-    return {
-      'text-white':
-        this.color === 'success' ||
-        this.color === 'primary' ||
-        this.color === 'danger' ||
-        this.color === 'sky',
-      'text-gray-700': this.color === 'gray-light',
-      'bg-success-700': this.color === 'success',
-      'hover:bg-success-800': this.color === 'success',
-      'focus:ring-success-300': this.color === 'success',
-      'bg-primary-700': this.color === 'primary',
-      'hover:bg-primary-800': this.color === 'primary',
-      'focus:ring-primary-300': this.color === 'primary',
-      'bg-danger-700': this.color === 'danger',
-      'hover:bg-danger-800': this.color === 'danger',
-      'focus:ring-danger-300': this.color === 'danger',
+  mapColors = {
+    success: {
+      'bg-success-700': true,
+      'hover:bg-success-800': true,
+      'focus:ring-success-300': true,
+      'text-white': true,
+    },
+    primary: {
+      'bg-primary-700': true,
+      'hover:bg-primary-800': true,
+      'focus:ring-primary-300': true,
+      'text-white': true,
+    },
+    danger: {
+      'bg-danger-700': true,
+      'hover:bg-danger-800': true,
+      'focus:ring-danger-300': true,
+      'text-white': true,
+    },
+    light: {
+      'bg-gray-200': true,
+      'hover:bg-gray-500': true,
+      'focus:ring-gray-50': true,
+      'text-gray-700': true,
+    },
+    sky: {
       'bg-sky-700': this.color === 'sky',
       'hover:bg-sky-800': this.color === 'sky',
       'focus:ring-sky-300': this.color === 'sky',
-      'bg-gray-200': this.color === 'gray-light',
-      'hover:bg-gray-500': this.color === 'gray-light',
-      'focus:ring-gray-50': this.color === 'gray-light',
-    };
+      'text-white': true,
+    },
+  };
+
+  get colors() {
+    const colors = this.mapColors[this.color];
+    if (colors) return colors;
+    return {};
   }
 
   get saludo() {
