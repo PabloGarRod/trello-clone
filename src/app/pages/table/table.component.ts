@@ -4,17 +4,25 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NavbarComponent } from '@components/navbar/navbar.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Product } from '@models/product.model';
+import { DataSourceProduct } from './data-source';
+import { BtnComponent } from '@components/btn/btn.component';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CdkTableModule, NavbarComponent, HttpClientModule, CommonModule],
+  imports: [
+    CdkTableModule,
+    NavbarComponent,
+    HttpClientModule,
+    CommonModule,
+    BtnComponent,
+  ],
   templateUrl: './table.component.html',
 })
 export class TableComponent implements OnInit {
-  products: Product[] = [];
+  dataSource = new DataSourceProduct();
 
-  columns: string[] = ['id', 'name', 'price', 'img'];
+  columns: string[] = ['id', 'name', 'price', 'img', 'actions'];
 
   total = 0;
 
@@ -24,12 +32,12 @@ export class TableComponent implements OnInit {
     this.http
       .get<Product[]>('https://api.escuelajs.co/api/v1/products')
       .subscribe((data) => {
-        this.products = data;
-        this.total = this.products
-          .map((item) => item.price)
-          .reduce((price, total) => {
-            return price + total;
-          }, 0);
+        this.dataSource.init(data);
+        this.total = this.dataSource.getTotal();
       });
+  }
+
+  update(product: Product) {
+    this.dataSource.update(product.id, { price: 20 });
   }
 }

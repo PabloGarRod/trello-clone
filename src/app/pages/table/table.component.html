@@ -3,9 +3,9 @@
   <div class="w-full grow bg-white-600 p-6">
     <p class="text-xl text-gray-700 font-semibold italic mb-5">Table</p>
     <table
-      class="w-full text-sm text-left text-gray-500"
+      class="w-full bg-white text-sm text-left text-gray-500"
       cdk-table
-      [dataSource]="products"
+      [dataSource]="dataSource"
     >
       <tr
         class="text-xs text-gray-700 uppercase bg-gray-50"
@@ -14,9 +14,12 @@
       ></tr>
       <tr
         cdk-row
-        class="bg-white border-b"
+        class="border-b"
         *cdkRowDef="let row; columns: columns"
-        [ngClass]="{ 'bg-red-200': row.price % 5 === 0 }"
+        [ngClass]="{
+          'bg-red-200': row.price < 50,
+          'bg-green-200': row.price > 50
+        }"
       ></tr>
       <tr
         class="text-xl text-gray-700 uppercase bg-gray-50"
@@ -52,6 +55,14 @@
         <th cdk-header-cell *cdkHeaderCellDef class="py-3 px-6">Cover.</th>
         <td cdk-cell *cdkCellDef="let row" class="py-4 px-6">
           <img class="w-20" [src]="row.images[0]" alt="" />
+        </td>
+        <th cdk-footer-cell *cdkFooterCellDef class="py-3 px-6"></th>
+      </ng-container>
+      <!-- ACTIONS COLUMN-->
+      <ng-container cdkColumnDef="actions">
+        <th cdk-header-cell *cdkHeaderCellDef class="py-3 px-6">Actions.</th>
+        <td cdk-cell *cdkCellDef="let row" class="py-4 px-6">
+          <app-btn (click)="update(row)">Update</app-btn>
         </td>
         <th cdk-footer-cell *cdkFooterCellDef class="py-3 px-6"></th>
       </ng-container>
