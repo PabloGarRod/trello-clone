@@ -6,6 +6,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Product } from '@models/product.model';
 import { DataSourceProduct } from './data-source';
 import { BtnComponent } from '@components/btn/btn.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -16,6 +18,7 @@ import { BtnComponent } from '@components/btn/btn.component';
     HttpClientModule,
     CommonModule,
     BtnComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './table.component.html',
 })
@@ -26,6 +29,8 @@ export class TableComponent implements OnInit {
 
   total = 0;
 
+  input = new FormControl('', { nonNullable: true });
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -35,6 +40,9 @@ export class TableComponent implements OnInit {
         this.dataSource.init(data);
         this.total = this.dataSource.getTotal();
       });
+    this.input.valueChanges
+      .pipe(debounceTime(1000))
+      .subscribe((value) => this.dataSource.find(value));
   }
 
   update(product: Product) {
